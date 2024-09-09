@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Test</title>
+</head>
+<body>
+    <h1>Test API</h1>
+    <button id="getUsers">Get Users</button>
+    <button id="postUser">Add User</button>
+    <pre id="response"></pre>
+    <script>
+        const apiUrl = 'https://localhost:7177/api/Users'; // Update if using HTTPS
+
+        document.getElementById('getUsers').addEventListener('click', () => {
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('response').textContent = JSON.stringify(data, null, 2);
+                })
+                .catch(error => {
+                    console.error('GET request error:', error);
+                    document.getElementById('response').textContent = 'Error: ' + error;
+                });
+        });
+
+        document.getElementById('postUser').addEventListener('click', () => {
+            fetch(apiUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    Username: 'newuser',
+                    ProfilePictureUrl: 'http://example.com/pic.jpg',
+                    Status: 'Active',
+                    Type: 'Regular'
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('response').textContent = JSON.stringify(data, null, 2);
+                })
+                .catch(error => {
+                    console.error('POST request error:', error);
+                    document.getElementById('response').textContent = 'Error: ' + error;
+                });
+        });
+    </script>
+</body>
+</html>

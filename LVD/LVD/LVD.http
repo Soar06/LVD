@@ -1,0 +1,6 @@
+@LVD_HostAddress = http://localhost:5086
+
+GET {{LVD_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
